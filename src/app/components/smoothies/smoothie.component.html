@@ -1,0 +1,15 @@
+<article>
+  <div *ngIf="smoothie">
+    <h4>{{smoothie.name}} details</h4>
+
+    <div>
+      <label for="nametext">Name</label>
+      <input type="text" id="nametext" [(ngModel)]="smoothie.name" />
+    </div>
+
+    <div>
+      <label for="typetext">Description</label>
+      <input type="text" id="typetext" [(ngModel)]="smoothie.description" />
+    </div>
+  </div>
+</article>

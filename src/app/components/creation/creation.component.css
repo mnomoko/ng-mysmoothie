@@ -1,0 +1,23 @@
+.creation-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.creation-container > * {
+  width: 80%;
+}
+
+.creation-full-width {
+  width: 100%;
+}
+
+.creation-mid-width {
+  width: 45%;
+  margin: 0;
+}
+
+.radio-margin {
+  margin: 0 10px;
+}
+
+.mat-form-field-infix { width: auto !important; }

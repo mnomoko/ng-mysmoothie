@@ -1,0 +1,13 @@
+<div class="container">
+  <article>
+    <h4>My Smoothies</h4>
+
+    <ul class="vehicles">
+      <li *ngFor="let smoothie of smoothies">
+        <a href="" [routerLink]="[smoothie.id]">
+          {{smoothie.id}}. {{smoothie.name}}
+        </a>
+      </li>
+    </ul>
+  </article>
+</div>

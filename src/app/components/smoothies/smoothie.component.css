@@ -1,0 +1,7 @@
+.smoothies {
+  list-style-type: none;
+}
+*.smoothies li {
+  padding: 4px;
+  cursor: pointer;
+}

@@ -1,0 +1,13 @@
+<mat-toolbar color="dark">
+  <div>
+    <a [routerLink]="['/']">
+      My Smoothie
+    </a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end">
+    <ul fxLayout fxLayoutGap="20px" class="navigation-items">
+    <li><a [routerLink]="['/smoothies']"> Smoothies </a></li>
+    <li><a [routerLink]="['/creations']"> Creations </a></li>
+    </ul>
+  </div>
+</mat-toolbar>
