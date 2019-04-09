@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, CUSTOM_ELEMENTS_SCHEMA, OnInit} from '@angular/core';
 import { SmoothieService } from '../../services/smoothie.service';
 import {Smoothie} from '../../models/smoothie';
 
@@ -9,6 +9,8 @@ import {Smoothie} from '../../models/smoothie';
 })
 export class SmoothieListComponent implements OnInit {
   smoothies: Smoothie[];
+
+  regularDistribution = 100 / 3;
 
   constructor(private smoothieService: SmoothieService) {}
 

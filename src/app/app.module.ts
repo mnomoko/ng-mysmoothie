@@ -12,12 +12,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialsModule} from './materials-module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FruitService} from './services/fruit.service';
-import {SmoothieCardComponent} from './components/smoothies/smoothie-card.component';
+import {SmoothieCardComponent, SmoothieModalComponent} from './components/smoothies/smoothie-card.component';
 
 @NgModule({
-  declarations: [AppComponent, routableComponents, NavBarComponent, SmoothieCardComponent],
+  declarations: [AppComponent, routableComponents, NavBarComponent, SmoothieCardComponent, SmoothieModalComponent],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, RouterModule, HttpClientModule, BrowserAnimationsModule, AppRoutingModule, MaterialsModule, FlexLayoutModule],
   providers: [FruitService, SmoothieService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SmoothieModalComponent]
 })
 export class AppModule { }

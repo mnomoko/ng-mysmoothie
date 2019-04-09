@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { SmoothieListComponent } from './smoothie-list.component';
 import { SmoothieComponent } from './smoothie.component';
 import { SmoothiesComponent } from './smoothies.component';
-import {SmoothieCardComponent} from './smoothie-card.component';
 
 const routes: Routes = [
   {

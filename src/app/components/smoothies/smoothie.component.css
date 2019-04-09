@@ -1,7 +1,30 @@
+a {
+  text-decoration: none;
+  color: dimgray;
+}
+
+a:hover,
+a:active {
+  color: lightgray;
+}
+
+.smoothies-container {
+  padding: 2em;
+}
+
 .smoothies {
   list-style-type: none;
 }
 *.smoothies li {
   padding: 4px;
   cursor: pointer;
+}
+
+.card {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.card-body {
+  margin-top: 1em;
 }

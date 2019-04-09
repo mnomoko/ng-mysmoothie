@@ -1,13 +1,5 @@
-<div class="container">
-  <article>
-    <h4>My Smoothies</h4>
-
-    <ul class="vehicles">
-      <li *ngFor="let smoothie of smoothies">
-        <a href="" [routerLink]="[smoothie.id]">
-          {{smoothie.id}}. {{smoothie.name}}
-        </a>
-      </li>
-    </ul>
-  </article>
+<div class="smoothies-container">
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap="wrap">
+    <app-smoothie-card class="card" [fxFlex.gt-xs]="50" [fxFlex.gt-md]="regularDistribution" *ngFor="let smoothie of smoothies" [smoothie]="smoothie"></app-smoothie-card>
+  </div>
 </div>

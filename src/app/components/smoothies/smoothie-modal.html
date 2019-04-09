@@ -1,0 +1,11 @@
+<div>
+  <h2>{{smoothie.name}}</h2>
+  <p>{{smoothie.description}}</p>
+  <h4>Préparation</h4>
+  <ul>
+    <li *ngFor="let fruit of smoothie.fruits">{{fruit.preparation}}</li>
+    <li>Ajoutez les fruits dans le blender</li>
+    <li>Ajoutez le {{smoothie.jus.name}} dans le blender</li>
+    <li>Mixez et servez</li>
+  </ul>
+</div>
