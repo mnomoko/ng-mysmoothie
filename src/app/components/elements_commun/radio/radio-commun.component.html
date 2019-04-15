@@ -1,0 +1,6 @@
+<div [formGroup]="parentForm">
+  <label>{{option.label}}</label>
+  <mat-radio-group appearance="legacy" [formControlName]="option.name">
+    <mat-radio-button *ngFor="let radio of option.items" [value]="radio.value" class="radio-margin" (click)="radioClick(radio)">{{radio.label}}</mat-radio-button>
+  </mat-radio-group>
+</div>

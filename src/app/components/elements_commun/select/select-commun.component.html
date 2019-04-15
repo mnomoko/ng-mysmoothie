@@ -1,0 +1,12 @@
+<div [formGroup]="parentForm">
+  <mat-label> {{option.label}} </mat-label>
+  <mat-form-field>
+    <mat-select placeholder="{{option.placeholder}}" [ngClass]="'panel-override'" [formControlName]="option.name" required>
+      <mat-option *ngFor="let item of option.items" [value]="item">
+        {{item.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="parentForm.controls[option.name].hasError('required')">{{option.messageError}}</mat-error>
+    <mat-hint>{{parentForm.controls[option.name].value?.sound}}</mat-hint>
+  </mat-form-field>
+</div>

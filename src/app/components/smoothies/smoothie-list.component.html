@@ -1,5 +1,8 @@
 <div class="smoothies-container">
-  <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap="wrap">
+  <div *ngIf="!isLoading" fxLayout="row" fxLayout.xs="column" fxLayoutWrap="wrap">
     <app-smoothie-card class="card" [fxFlex.gt-xs]="50" [fxFlex.gt-md]="regularDistribution" *ngFor="let smoothie of smoothies" [smoothie]="smoothie"></app-smoothie-card>
+  </div>
+  <div *ngIf="isLoading" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
   </div>
 </div>

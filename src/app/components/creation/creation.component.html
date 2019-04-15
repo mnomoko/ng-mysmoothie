@@ -1,6 +1,5 @@
-<div class="container">
-  <h3>Créer votre smoothie</h3>
-  <form class="creation-container" [formGroup]="creationForm">
+<div class="container" fxLayout="row" fxLayoutAlign="center center">
+  <form *ngIf="!isLoading" class="creation-container" [formGroup]="creationForm">
     <mat-form-field class="creation-full-width">
       <input matInput placeholder="Nom du smoothie" formControlName="name" value="" required>
       <mat-error *ngIf="creationForm.controls['name'].hasError('required')">Ce champ est obligatoire</mat-error>
@@ -8,20 +7,10 @@
 
     <div class="creation-full-width">
       <div fxFlex>
-        <mat-label>Type de smoothie : </mat-label>
-        <mat-button-toggle-group appearance="legacy" #group="matButtonToggleGroup" formControlName="typeFruit">
-          <mat-button-toggle value="acide">Acidulé</mat-button-toggle>
-          <mat-button-toggle value="amer">Amer</mat-button-toggle>
-          <mat-button-toggle value="sucre">Sucré</mat-button-toggle>
-          <mat-button-toggle value="sale">Salé</mat-button-toggle>
-        </mat-button-toggle-group>
+        <app-button-toggle-commun [parentForm]="creationForm" [option]="buttonToggle" (item)="filterListCareUnit($event)"></app-button-toggle-commun>
       </div>
       <div fxFlex>
-        <label>Nombre de personne : </label>
-        <mat-radio-group appearance="legacy" formControlName="nombrePersonne">
-          <mat-radio-button value="1" class="radio-margin">1</mat-radio-button>
-          <mat-radio-button value="2" class="radio-margin">2</mat-radio-button>
-        </mat-radio-group>
+        <app-radio-commun [parentForm]="creationForm" [option]="optionNbPersonne"></app-radio-commun>
       </div>
     </div>
 
@@ -34,46 +23,24 @@
 
     <div class="creation-full-width" fxLayout="row" fxLayoutAlign="space-between">
       <div fxFlex>
-        <mat-label>Selectionner un jus de fruit : </mat-label>
-        <mat-form-field>
-          <mat-select placeholder="Selectionner un jus.." [ngClass]="'panel-override'" formControlName="juice" required>
-            <mat-option *ngFor="let animal of animals" [value]="animal">
-              {{animal.name}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="creationForm.controls['juice'].hasError('required')">Veuillez sélectionner un jus</mat-error>
-          <mat-hint>{{creationForm.controls['juice'].value?.sound}}</mat-hint>
-        </mat-form-field>
+        <app-select-commun [parentForm]="creationForm" [option]="optionJus"></app-select-commun>
       </div>
       <div fxFlex>
-        <mat-label>Nombre de fruit : </mat-label>
-        <mat-radio-group appearance="legacy" formControlName="nombreFruit">
-          <mat-radio-button value="1" class="radio-margin">1</mat-radio-button>
-          <mat-radio-button value="2" class="radio-margin">2</mat-radio-button>
-          <mat-radio-button value="3" class="radio-margin">3</mat-radio-button>
-          <mat-radio-button value="4" class="radio-margin">4</mat-radio-button>
-          <mat-radio-button value="5" class="radio-margin">5</mat-radio-button>
-        </mat-radio-group>
+        <app-radio-commun [parentForm]="creationForm" [option]="optionNbFruit" (item)="changeNbFruits($event)"></app-radio-commun>
       </div>
     </div>
 
     <div class="creation-full-width" fxLayout="row" fxLayoutAlign="space-between">
       <div fxFlex>
-        <mat-label>Selectionner un fruit : </mat-label>
-        <mat-form-field>
-          <mat-select placeholder="Selectionner un fruit.." [ngClass]="'panel-override'" formControlName="fruit" required>
-            <mat-option *ngFor="let fruit of fruits" [value]="fruit">
-              {{fruit.name}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="creationForm.controls['fruit'].hasError('required')">Veuillez sélectionner un fruit</mat-error>
-          <mat-hint>{{creationForm.controls['fruit'].value?.sound}}</mat-hint>
-        </mat-form-field>
+        <app-select-commun [parentForm]="creationForm" [option]="option"></app-select-commun>
       </div>
 
     </div>
 
-    <button mat-raised-button class="creation-full-width" type="submit" color="primary">Créer</button>
+    <button mat-raised-button class="creation-full-width" [disabled]="creationForm.invalid" type="submit" color="primary">Créer</button>
 
   </form>
+  <div *ngIf="isLoading" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
 </div>

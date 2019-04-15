@@ -24,4 +24,8 @@ function getJuice(juice: Juice): IJuice {
   }
 }
 
-export { Juice, getJuice };
+function getJuices(): Juice[] {
+  return [Juice.ORANGE, Juice.CITRON, Juice.ANANAS, Juice.POMME, Juice.LAIT_COCO];
+}
+
+export { Juice, getJuice, getJuices };

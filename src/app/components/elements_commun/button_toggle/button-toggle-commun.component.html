@@ -1,0 +1,6 @@
+<div [formGroup]="parentForm">
+  <mat-label>{{option.label}}</mat-label>
+  <mat-button-toggle-group appearance="legacy" [multiple]="false" #group="matButtonToggleGroup" [formControlName]="option.name" (click)="buttonToggleClick(group)">
+    <mat-button-toggle *ngFor="let item of option.items" [value]="item.value">{{item.label}}</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

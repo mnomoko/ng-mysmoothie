@@ -1,11 +1,12 @@
 .creation-container {
   display: flex;
   flex-direction: column;
-}
-
-.creation-container > * {
   width: 80%;
 }
+
+/*.creation-container > * {*/
+  /*width: 80%;*/
+/*}*/
 
 .creation-full-width {
   width: 100%;

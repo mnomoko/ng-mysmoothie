@@ -13,9 +13,12 @@ import {MaterialsModule} from './materials-module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FruitService} from './services/fruit.service';
 import {SmoothieCardComponent, SmoothieModalComponent} from './components/smoothies/smoothie-card.component';
+import {SelectCommunComponent} from './components/elements_commun/select/select-commun.component';
+import {RadioCommunComponent} from './components/elements_commun/radio/radio-commun.component';
+import {ButtonToggleCommunComponent} from './components/elements_commun/button_toggle/button-toggle-commun.component';
 
 @NgModule({
-  declarations: [AppComponent, routableComponents, NavBarComponent, SmoothieCardComponent, SmoothieModalComponent],
+  declarations: [AppComponent, routableComponents, NavBarComponent, SmoothieCardComponent, SmoothieModalComponent, SelectCommunComponent, RadioCommunComponent, ButtonToggleCommunComponent],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, RouterModule, HttpClientModule, BrowserAnimationsModule, AppRoutingModule, MaterialsModule, FlexLayoutModule],
   providers: [FruitService, SmoothieService],
   bootstrap: [AppComponent],
