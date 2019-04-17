@@ -1,22 +1,23 @@
-import {AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 import { SmoothieService } from '../../services/smoothie.service';
-import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material';
 import { FruitService } from '../../services/fruit.service';
 import {Fruit} from '../../models/fruit';
 import {Smoothie} from '../../models/smoothie';
 import {getJuice, getJuices, Juice} from '../../../commons/enums/juices';
+import {BTCItem, ButtonToggleCommun} from '../elements_commun/button_toggle/button-toggle-commun';
+import {RadioCommun, RBItem} from '../elements_commun/radio/radio-commun';
+import {SelectCommun} from '../elements_commun/select/select-commun';
 
 @Component({
   selector: 'app-creation',
   templateUrl: './creation.component.html',
   styleUrls: ['./creation.component.css']
 })
-export class CreationComponent implements OnInit, AfterViewInit {
+export class CreationComponent implements OnInit {
   @Input() smoothie: Smoothie;
 
-  private id: any;
   creationForm;
   isLoading: boolean = false;
 
@@ -24,86 +25,24 @@ export class CreationComponent implements OnInit, AfterViewInit {
   allFruits: Fruit[] = [];
   fruits: Fruit[] = [];
 
-  buttonToggle = {
-    name: 'typeFruit',
-    label: 'Type de smoothie : ',
-    items: [
-      { value: 'acide', label: 'Acidulé' },
-      { value: 'amer', label: 'Amer' },
-      { value: 'sucre', label: 'Sucré' },
-      { value: 'sale', label: 'Salé' },
-    ]
-  };
+  buttonToggle: ButtonToggleCommun;
+  optionNbPersonne: RadioCommun;
+  optionNbFruit: RadioCommun;
+  option: SelectCommun;
+  optionJus: SelectCommun;
 
-  option: any = {
-    name: 'fruit',
-    label: 'Veuillez sélectionner un fruit : ',
-    placeholder: 'Veuillez sélectionner un fruit',
-    items: [],
-    messageError: 'Veuillez sélectionner un fruit',
-  };
+  nombreSelectionFruit: number;
 
-  optionJus: any = {
-    name: 'juice',
-    label: 'Veuillez sélectionner un jus : ',
-    placeholder: 'Veuillez sélectionner un jus',
-    items: [],
-    messageError: 'Veuillez sélectionner un jus',
-  };
-
-  optionNbPersonne: any = {
-    name: 'nombrePersonne',
-    label: 'Nombre de personne : ',
-    items: [
-      { label: '1', value: 1 },
-      { label: '2', value: 2 }
-    ]
-  };
-
-  optionNbFruit: any = {
-    name: 'nombreFruit',
-    label: 'Nombre de fruit : ',
-    items: [
-      { label: '1', value: 1 },
-      { label: '2', value: 2 },
-      { label: '3', value: 3 },
-      { label: '4', value: 4 },
-      { label: '5', value: 5 }
-    ]
-  };
-
-  @ViewChild(MatButtonToggleGroup) group: MatButtonToggleGroup;
-  @ViewChildren(MatButtonToggle) toggles: QueryList<MatButtonToggle>;
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.toggles.forEach(toggle => toggle.buttonToggleGroup = this.group);
-    });
-  }
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private smoothieService: SmoothieService,
-    private fruitService: FruitService
-  ) {
+  constructor(private router: Router, private smoothieService: SmoothieService, private fruitService: FruitService) {
     this.createForm();
   }
 
   ngOnInit() {
-    this.getFruits();
-    this.jus = this.getJuices();
-    this.setAndRefreshJuiceList(this.jus);
+    this.setNombreSelectionFruit(DEFAULT_NOMBRE_FRUIT);
 
-    this.creationForm = new FormGroup ({
-      name: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
-      typeFruit: new FormControl(null),
-      nombrePersonne: new FormControl(null),
-      nombreFruit: new FormControl(null, [Validators.required]),
-      juice: new FormControl('', [Validators.required]),
-      fruit: new FormControl('', [Validators.required])
-    });
+    this.jus = this.getJuices();
+    this.getFruits();
+    this.createForm();
     this.setDefaultValue();
   }
 
@@ -116,7 +55,7 @@ export class CreationComponent implements OnInit, AfterViewInit {
     this.fruitService.getFruits().subscribe(fruits => {
       this.isLoading = false;
       this.allFruits = fruits;
-      this.setAndRefreshFruitList(fruits);
+      this.initView(fruits, this.jus);
     });
   }
 
@@ -127,10 +66,6 @@ export class CreationComponent implements OnInit, AfterViewInit {
   public setAndRefreshFruitList(data: Fruit[]) {
     this.setFruitsSelection(data);
     this.option.items = data;
-  }
-
-  public setAndRefreshJuiceList(data) {
-    this.optionJus.items = data;
   }
 
   public postSmoothie(smoothie) {
@@ -168,16 +103,74 @@ export class CreationComponent implements OnInit, AfterViewInit {
     });
   }
 
+  private initTypeFruit() {
+    const itemsBTC: BTCItem[] = [];
+    itemsBTC.push(new BTCItem('Acidulé', 'acide'));
+    itemsBTC.push(new BTCItem('Amer', 'amer'));
+    itemsBTC.push(new BTCItem('Sucré', 'sucre'));
+    itemsBTC.push(new BTCItem('Salé', 'sale'));
+    this.buttonToggle = new ButtonToggleCommun('typeFruit', 'Type de smoothie : ', itemsBTC);
+  }
+
+  private initNombrePersonne() {
+    const itemsRB: RBItem[] = [];
+    itemsRB.push(new RBItem('1', 1));
+    itemsRB.push(new RBItem('2', 2));
+    this.optionNbPersonne = new ButtonToggleCommun('nombrePersonne', 'Nombre de personne : ', itemsRB);
+  }
+
+  private initNombreFruit() {
+    const itemsRB: RBItem[] = [];
+    itemsRB.push(new RBItem('1', 1));
+    itemsRB.push(new RBItem('2', 2));
+    itemsRB.push(new RBItem('3', 3));
+    itemsRB.push(new RBItem('4', 4));
+    itemsRB.push(new RBItem('5', 5));
+    this.optionNbFruit = new ButtonToggleCommun('nombreFruit', 'Nombre de fruit : ', itemsRB);
+  }
+
+  private initSelection(name: string, label: string, items: any[], placeholder?: string, messageError?: string): SelectCommun {
+    return new SelectCommun(name, label, items, placeholder, messageError);
+  }
+
+  private initSelectionFruit(items: any) {
+    this.option = this.initSelection('fruit', 'Sélectionner un fruit : ', items, 'Sélectionner un fruit : ', 'Sélectionner un fruit : ');
+  }
+
+  private initSelectionJus(items: any[]) {
+    this.optionJus = this.initSelection('juice', 'Sélectionner un jus : ', items, 'Sélectionner un jus : ', 'Sélectionner un jus : ');
+  }
+
+  private initView(fruits: Fruit[], juices: any[]) {
+    this.initTypeFruit();
+    this.initNombreFruit();
+    this.initNombrePersonne();
+    this.initSelectionFruit(fruits);
+    this.initSelectionJus(juices);
+  }
+
   private setDefaultValue() {
     this.creationForm.patchValue({
-      nombreFruit: 1
+      nombreFruit: DEFAULT_NOMBRE_FRUIT
     });
+  }
+
+  private changeNumberToIntArray(value: number) {
+    return Array(value).fill().map((x, i) => i);
+  }
+
+  private setNombreSelectionFruit(value: number) {
+    console.log('just changed fruit', value);
+    this.nombreSelectionFruit = this.changeNumberToIntArray(value);
   }
 
   public changeNbFruits(e: string) {
     console.log('just changed fruit', e);
+    this.setNombreSelectionFruit(e.value);
   }
 }
+
+const DEFAULT_NOMBRE_FRUIT = 2;
 
 export interface Animal {
   name: string;

@@ -31,8 +31,8 @@
     </div>
 
     <div class="creation-full-width" fxLayout="row" fxLayoutAlign="space-between">
-      <div fxFlex>
-        <app-select-commun [parentForm]="creationForm" [option]="option"></app-select-commun>
+      <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="20px">
+        <app-select-commun *ngFor="let i of nombreSelectionFruit" [parentForm]="creationForm" [option]="option"></app-select-commun>
       </div>
 
     </div>
