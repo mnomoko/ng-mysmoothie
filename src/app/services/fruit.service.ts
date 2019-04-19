@@ -8,9 +8,7 @@ const fruitsUrl = 'http://localhost:4000/api/v1/fruits';
 
 @Injectable()
 export class FruitService {
-  constructor(private http: HttpClient) {
-    console.log('created fruit service');
-  }
+  constructor(private http: HttpClient) {}
 
   getFruits(): Observable<Fruit[]> {
     return this.http

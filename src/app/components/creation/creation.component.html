@@ -21,7 +21,7 @@
       </mat-form-field>
     </div>
 
-    <div class="creation-full-width" fxLayout="row" fxLayoutAlign="space-between">
+    <div class="creation-full-width" fxLayout="row wrap" fxLayoutAlign="space-between">
       <div fxFlex>
         <app-select-commun [parentForm]="creationForm" [option]="optionJus"></app-select-commun>
       </div>
@@ -32,7 +32,7 @@
 
     <div class="creation-full-width" fxLayout="row" fxLayoutAlign="space-between">
       <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="20px">
-        <app-select-commun *ngFor="let i of nombreSelectionFruit" [parentForm]="creationForm" [option]="option"></app-select-commun>
+        <app-select-commun *ngFor="let i of nombreSelectionFruit" [parentForm]="creationForm" [option]="options.get(i)"></app-select-commun>
       </div>
 
     </div>

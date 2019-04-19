@@ -8,9 +8,7 @@ const smoothiesUrl = 'http://localhost:4000/api/v1/smoothies';
 
 @Injectable()
 export class SmoothieService {
-  constructor(private http: HttpClient) {
-    console.log('created smoothie service');
-  }
+  constructor(private http: HttpClient) {}
 
   getSmoothies(): Observable<Smoothie[]> {
     return this.http

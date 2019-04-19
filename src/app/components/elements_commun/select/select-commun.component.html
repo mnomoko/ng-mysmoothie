@@ -1,7 +1,7 @@
 <div [formGroup]="parentForm">
   <mat-label> {{option.label}} </mat-label>
   <mat-form-field>
-    <mat-select placeholder="{{option.placeholder}}" [ngClass]="'panel-override'" [formControlName]="option.name" required>
+    <mat-select placeholder="{{option.placeholder}}" [ngClass]="'panel-override'" [formControlName]="option.name" [required]="option.isRequire">
       <mat-option *ngFor="let item of option.items" [value]="item">
         {{item.name}}
       </mat-option>

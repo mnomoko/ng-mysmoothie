@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit} from '@angular/core';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { SmoothieService } from '../../services/smoothie.service';
 import { FruitService } from '../../services/fruit.service';
@@ -19,19 +19,19 @@ export class CreationComponent implements OnInit {
   @Input() smoothie: Smoothie;
 
   creationForm;
-  isLoading: boolean = false;
+  isLoading = false;
 
   jus: any[] = [];
   allFruits: Fruit[] = [];
   fruits: Fruit[] = [];
+  options: IMap = new Map<number, SelectCommun>();
 
   buttonToggle: ButtonToggleCommun;
   optionNbPersonne: RadioCommun;
   optionNbFruit: RadioCommun;
-  option: SelectCommun;
   optionJus: SelectCommun;
 
-  nombreSelectionFruit: number;
+  nombreSelectionFruit: number[];
 
   constructor(private router: Router, private smoothieService: SmoothieService, private fruitService: FruitService) {
     this.createForm();
@@ -65,7 +65,7 @@ export class CreationComponent implements OnInit {
 
   public setAndRefreshFruitList(data: Fruit[]) {
     this.setFruitsSelection(data);
-    this.option.items = data;
+    this.options.forEach(option => option.items = data);
   }
 
   public postSmoothie(smoothie) {
@@ -87,6 +87,10 @@ export class CreationComponent implements OnInit {
     }
   }
 
+  public filterListByGout(event): Fruit[] {
+    return event ? this.allFruits.filter((fruit) => fruit.gouts.includes(event.value)) : this.allFruits;
+  }
+
   public filterListCareUnit(event) {
     this.setAndRefreshFruitList(event ? this.allFruits.filter((fruit) => fruit.gouts.includes(event.value)) : this.allFruits);
   }
@@ -99,7 +103,11 @@ export class CreationComponent implements OnInit {
       nombrePersonne: new FormControl(null),
       nombreFruit: new FormControl(null),
       juice: new FormControl('', [Validators.required]),
-      fruit: new FormControl('', [Validators.required])
+      fruit0: new FormControl('', [Validators.required]),
+      fruit1: new FormControl('', [Validators.required]),
+      fruit2: new FormControl(''),
+      fruit3: new FormControl(''),
+      fruit4: new FormControl('')
     });
   }
 
@@ -130,11 +138,23 @@ export class CreationComponent implements OnInit {
   }
 
   private initSelection(name: string, label: string, items: any[], placeholder?: string, messageError?: string): SelectCommun {
-    return new SelectCommun(name, label, items, placeholder, messageError);
+    return new SelectCommun(name, label, items, placeholder, true, messageError);
   }
 
-  private initSelectionFruit(items: any) {
-    this.option = this.initSelection('fruit', 'Sélectionner un fruit : ', items, 'Sélectionner un fruit : ', 'Sélectionner un fruit : ');
+  private addSelectionFruit(items: any[], id: number) {
+    const option = this.initSelection(`fruit${id}`, 'Sélectionner un fruit : ', items, 'Sélectionner un fruit : ', 'Sélectionner un fruit : ');
+    this.options.set(id, option);
+  }
+
+  private removeSelectionFruit(id: number) {
+    this.options.delete(id);
+  }
+
+  private initSelectionFruit(items: any[], id: number) {
+    const array = this.changeNumberToIntArray(id);
+    array.forEach(e => {
+      this.addSelectionFruit(items, e);
+    });
   }
 
   private initSelectionJus(items: any[]) {
@@ -145,7 +165,7 @@ export class CreationComponent implements OnInit {
     this.initTypeFruit();
     this.initNombreFruit();
     this.initNombrePersonne();
-    this.initSelectionFruit(fruits);
+    this.initSelectionFruit(fruits, 2);
     this.initSelectionJus(juices);
   }
 
@@ -156,23 +176,37 @@ export class CreationComponent implements OnInit {
   }
 
   private changeNumberToIntArray(value: number) {
-    return Array(value).fill().map((x, i) => i);
+    return Array(value).fill(undefined).map((x, i) => i);
   }
 
   private setNombreSelectionFruit(value: number) {
-    console.log('just changed fruit', value);
     this.nombreSelectionFruit = this.changeNumberToIntArray(value);
   }
 
-  public changeNbFruits(e: string) {
-    console.log('just changed fruit', e);
-    this.setNombreSelectionFruit(e.value);
+  private refreshFruitsForm(size: number) {
+    const optionLength = this.nombreSelectionFruit.length;
+
+    if (size > optionLength) {
+      for (let i = optionLength; i < size; i++) {
+        this.creationForm.controls[`fruit${i}`].reset();
+        this.creationForm.controls[`fruit${i}`].setValidators(Validators.required);
+        this.creationForm.controls[`fruit${i}`].updateValueAndValidity();
+        this.addSelectionFruit(this.allFruits, i);
+      }
+    } else {
+      for (let i = size; i < optionLength; i++) {
+        this.creationForm.controls[`fruit${i}`].clearValidators();
+        this.creationForm.controls[`fruit${i}`].updateValueAndValidity();
+        this.removeSelectionFruit(i);
+      }
+    }
+  }
+
+  public changeNbFruits(e: any) {
+    const size: number = e.value;
+    this.refreshFruitsForm(size);
+    this.setNombreSelectionFruit(size);
   }
 }
 
 const DEFAULT_NOMBRE_FRUIT = 2;
-
-export interface Animal {
-  name: string;
-  sound: string;
-}
