@@ -16,9 +16,10 @@ import {SmoothieCardComponent, SmoothieModalComponent} from './components/smooth
 import {SelectCommunComponent} from './components/elements_commun/select/select-commun.component';
 import {RadioCommunComponent} from './components/elements_commun/radio/radio-commun.component';
 import {ButtonToggleCommunComponent} from './components/elements_commun/button_toggle/button-toggle-commun.component';
+import {FormSmoothieComponent} from './components/elements_commun/formulaire-smoothie/form-smoothie.component';
 
 @NgModule({
-  declarations: [AppComponent, routableComponents, NavBarComponent, SmoothieCardComponent, SmoothieModalComponent, SelectCommunComponent, RadioCommunComponent, ButtonToggleCommunComponent],
+  declarations: [AppComponent, routableComponents, FormSmoothieComponent, NavBarComponent, SmoothieCardComponent, SmoothieModalComponent, SelectCommunComponent, RadioCommunComponent, ButtonToggleCommunComponent],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, RouterModule, HttpClientModule, BrowserAnimationsModule, AppRoutingModule, MaterialsModule, FlexLayoutModule],
   providers: [FruitService, SmoothieService],
   bootstrap: [AppComponent],

@@ -24,8 +24,22 @@ function getJuice(juice: Juice): IJuice {
   }
 }
 
+function getJuiceByCode(code: string): IJuice {
+  return getJuice(retrieveJuiceByCode(code));
+}
+
+function retrieveJuiceByCode(code: string): Juice {
+  switch (code) {
+    case 'orange': return Juice.ORANGE;
+    case 'citron': return Juice.CITRON;
+    case 'ananas': return Juice.ANANAS;
+    case 'pomme': return Juice.POMME;
+    case 'coco': return Juice.LAIT_COCO;
+  }
+}
+
 function getJuices(): Juice[] {
   return [Juice.ORANGE, Juice.CITRON, Juice.ANANAS, Juice.POMME, Juice.LAIT_COCO];
 }
 
-export { Juice, getJuice, getJuices };
+export { Juice, IJuice, getJuice, getJuices, getJuiceByCode };

@@ -8,4 +8,5 @@
     <li>Ajoutez le {{smoothie.jus.name}} dans le blender</li>
     <li>Mixez et servez</li>
   </ul>
+  <button mat-button (click)="closeDialog()" [routerLink]="['/smoothies/', smoothie.id]">editer le smoothie</button>
 </div>

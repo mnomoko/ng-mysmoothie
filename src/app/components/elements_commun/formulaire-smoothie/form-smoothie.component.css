@@ -1,0 +1,20 @@
+.form-edition-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-edition-full-width {
+  width: 100%;
+}
+
+.form-edition-mid-width {
+  width: 45%;
+  margin: 0;
+}
+
+.radio-margin {
+  margin: 0 10px;
+}
+
+.mat-form-field-infix { width: auto !important; }

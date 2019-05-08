@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {Smoothie} from '../../models/smoothie';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
 
@@ -35,5 +35,9 @@ export class SmoothieModalComponent {
   constructor(private dialogRef: MatDialogRef<SmoothieModalComponent>,
               @Inject(MAT_DIALOG_DATA) { smoothie }) {
     this.smoothie = smoothie;
+  }
+
+  public closeDialog() {
+    this.dialogRef.close(null);
   }
 }

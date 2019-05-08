@@ -2,7 +2,7 @@ import {MatButtonModule, MatButtonToggleModule, MatGridListModule, MatInputModul
 import { NgModule } from '@angular/core';
 
 @NgModule({
-  imports: [MatButtonModule, MatButtonToggleModule, MatGridListModule, MatInputModule, MatSelectModule, MatToolbarModule, MatRadioModule, MatCardModule, MatDialogModule, MatProgressSpinnerModule],
-  exports: [MatButtonModule, MatButtonToggleModule, MatGridListModule, MatInputModule, MatSelectModule, MatToolbarModule, MatRadioModule, MatCardModule, MatDialogModule, MatProgressSpinnerModule],
+  imports: [MatButtonModule, MatButtonToggleModule, MatGridListModule, MatInputModule, MatSelectModule, MatToolbarModule, MatRadioModule, MatCardModule, MatDialogModule, MatProgressSpinnerModule, MatButtonModule],
+  exports: [MatButtonModule, MatButtonToggleModule, MatGridListModule, MatInputModule, MatSelectModule, MatToolbarModule, MatRadioModule, MatCardModule, MatDialogModule, MatProgressSpinnerModule, MatButtonModule],
 })
 export class MaterialsModule { }

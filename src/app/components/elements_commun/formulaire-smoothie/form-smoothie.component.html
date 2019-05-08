@@ -1,0 +1,48 @@
+<div>
+  <div *ngIf="!isLoading">
+    <form class="form-edition-container" [formGroup]="editionForm" (submit)="sendSmoothie()">
+      <mat-form-field class="form-edition-full-width">
+        <input matInput placeholder="Nom du smoothie" formControlName="name" required>
+        <mat-error *ngIf="editionForm.controls['name'].hasError('required')">Ce champ est obligatoire</mat-error>
+      </mat-form-field>
+
+      <div class="form-edition-full-width">
+        <div fxFlex>
+          <app-button-toggle-commun [parentForm]="editionForm" [option]="buttonToggle" (item)="filterListCareUnit($event)"></app-button-toggle-commun>
+        </div>
+        <div fxFlex>
+          <app-radio-commun [parentForm]="editionForm" [option]="optionNbPersonne"></app-radio-commun>
+        </div>
+      </div>
+
+      <div fxFlex>
+        <mat-form-field class="form-edition-full-width">
+          <textarea matInput placeholder="Description" formControlName="description" required></textarea>
+          <mat-error *ngIf="editionForm.controls['description'].hasError('required')">Ce champ est obligatoire</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-edition-full-width" fxLayout="row wrap" fxLayoutAlign="space-between">
+        <div fxFlex>
+          <app-select-commun *ngIf="optionJus" [parentForm]="editionForm" [option]="optionJus"></app-select-commun>
+        </div>
+        <div fxFlex>
+          <app-radio-commun [parentForm]="editionForm" [option]="optionNbFruit" (item)="changeNbFruits($event)"></app-radio-commun>
+        </div>
+      </div>
+
+      <div class="form-edition-full-width" fxLayout="row" fxLayoutAlign="space-between">
+        <div *ngIf="options.size === nombreSelectionFruit.length" fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="20px">
+          <app-select-commun *ngFor="let i of nombreSelectionFruit" [parentForm]="editionForm" [option]="options.get(i)"></app-select-commun>
+        </div>
+
+      </div>
+
+      <button mat-raised-button class="form-edition-full-width" [disabled]="editionForm.invalid" type="submit" color="primary">Modifier</button>
+
+    </form>
+  </div>
+  <div *ngIf="isLoading" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

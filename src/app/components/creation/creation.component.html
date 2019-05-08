@@ -1,45 +1,5 @@
 <div class="container" fxLayout="row" fxLayoutAlign="center center">
-  <form *ngIf="!isLoading" class="creation-container" [formGroup]="creationForm">
-    <mat-form-field class="creation-full-width">
-      <input matInput placeholder="Nom du smoothie" formControlName="name" value="" required>
-      <mat-error *ngIf="creationForm.controls['name'].hasError('required')">Ce champ est obligatoire</mat-error>
-    </mat-form-field>
-
-    <div class="creation-full-width">
-      <div fxFlex>
-        <app-button-toggle-commun [parentForm]="creationForm" [option]="buttonToggle" (item)="filterListCareUnit($event)"></app-button-toggle-commun>
-      </div>
-      <div fxFlex>
-        <app-radio-commun [parentForm]="creationForm" [option]="optionNbPersonne"></app-radio-commun>
-      </div>
-    </div>
-
-    <div fxFlex>
-      <mat-form-field class="creation-full-width">
-        <textarea matInput placeholder="Description" formControlName="description" required></textarea>
-        <mat-error *ngIf="creationForm.controls['description'].hasError('required')">Ce champ est obligatoire</mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="creation-full-width" fxLayout="row wrap" fxLayoutAlign="space-between">
-      <div fxFlex>
-        <app-select-commun [parentForm]="creationForm" [option]="optionJus"></app-select-commun>
-      </div>
-      <div fxFlex>
-        <app-radio-commun [parentForm]="creationForm" [option]="optionNbFruit" (item)="changeNbFruits($event)"></app-radio-commun>
-      </div>
-    </div>
-
-    <div class="creation-full-width" fxLayout="row" fxLayoutAlign="space-between">
-      <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="20px">
-        <app-select-commun *ngFor="let i of nombreSelectionFruit" [parentForm]="creationForm" [option]="options.get(i)"></app-select-commun>
-      </div>
-
-    </div>
-
-    <button mat-raised-button class="creation-full-width" [disabled]="creationForm.invalid" type="submit" color="primary">Créer</button>
-
-  </form>
+  <app-form-smoothie *ngIf="!isLoading" class="creation-container" [allFruits]="allFruits" [jus]="jus" (item)="createSmoothie($event)"></app-form-smoothie>
   <div *ngIf="isLoading" fxLayout="row" fxLayoutAlign="center center">
     <mat-spinner></mat-spinner>
   </div>

@@ -4,11 +4,12 @@ import { SmoothieListComponent } from './components/smoothies/smoothie-list.comp
 import { CreationComponent } from './components/creation/creation.component';
 import { SmoothieComponent } from './components/smoothies/smoothie.component';
 import { PageNotFoundComponent } from './page-not-found.component';
+import {SmoothieEditComponent} from './components/smoothies/edit/smoothie-edit.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'smoothies' },
   { path: 'smoothies', component: SmoothieListComponent },
-  { path: 'smoothies/:id', component: SmoothieComponent },
+  { path: 'smoothies/:id', component: SmoothieEditComponent },
   { path: 'creations', component: CreationComponent },
   { path: '**', pathMatch: 'full', component: PageNotFoundComponent }
 ];
@@ -22,6 +23,7 @@ export class AppRoutingModule {}
 export const routableComponents = [
   SmoothieListComponent,
   SmoothieComponent,
+  SmoothieEditComponent,
   CreationComponent,
   PageNotFoundComponent
 ];
