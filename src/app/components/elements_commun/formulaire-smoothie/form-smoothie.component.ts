@@ -144,6 +144,7 @@ export class FormSmoothieComponent implements OnInit {
       this.editionForm.patchValue({
         nombreFruit: DEFAULT_NOMBRE_FRUIT
       });
+      this.setNombreSelectionFruit(DEFAULT_NOMBRE_FRUIT);
     }
   }
 

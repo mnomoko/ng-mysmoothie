@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import {Smoothie} from '../models/smoothie';
+import {environment} from '../../environments/environment';
 
-const smoothiesUrl = 'http://localhost:4000/api/v1/smoothies';
+const baseUrl = environment.apiUrl;
+const smoothiesUrl = `${baseUrl}/api/v1/smoothies`;
 
 @Injectable()
 export class SmoothieService {

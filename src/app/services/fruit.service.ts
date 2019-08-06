@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { Fruit } from '../models/fruit';
 import {Observable, throwError} from 'rxjs';
+import {environment} from '../../environments/environment';
 
-const fruitsUrl = 'http://localhost:4000/api/v1/fruits';
+const baseUrl = environment.apiUrl;
+const fruitsUrl = `${baseUrl}/api/v1/fruits`;
 
 @Injectable()
 export class FruitService {
