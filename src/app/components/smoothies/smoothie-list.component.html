@@ -1,8 +1,10 @@
-<div class="smoothies-container">
-  <div *ngIf="!isLoading" fxLayout="row" fxLayout.xs="column" fxLayoutWrap="wrap">
+<div class="smoothies-container" *ngIf="smoothies$ | async as smoothies; else loading">
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap="wrap" *ngIf="smoothies">
     <app-smoothie-card class="card" [fxFlex.gt-xs]="50" [fxFlex.gt-md]="regularDistribution" *ngFor="let smoothie of smoothies" [smoothie]="smoothie"></app-smoothie-card>
   </div>
-  <div *ngIf="isLoading" fxLayout="row" fxLayoutAlign="center center">
+</div>
+<ng-template #loading>
+  <div class="smoothies-container" fxLayout="row" fxLayoutAlign="center center">
     <mat-spinner></mat-spinner>
   </div>
-</div>
+</ng-template>

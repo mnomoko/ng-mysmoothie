@@ -1,14 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SmoothieService } from '../../services/smoothie.service';
-import { FruitService } from '../../services/fruit.service';
-import { Fruit } from '../../models/fruit';
 import { Smoothie } from '../../models/smoothie';
 import { getJuice, getJuices } from '../../../commons/enums/juices';
-import { ButtonToggleCommun } from '../elements_commun/button_toggle/button-toggle-commun';
-import { RadioCommun } from '../elements_commun/radio/radio-commun';
-import { SelectCommun } from '../elements_commun/select/select-commun';
-import { finalize } from 'rxjs/operators';
+import {select, Store} from '@ngrx/store';
+import {selectFruitList} from '../../store/selectors/fruit.selectors';
+import {IAppState} from '../../store/state/app.state';
+import {GetFruits} from '../../store/actions/fruit.actions';
+import {CreateSmoothie} from '../../store/actions/smoothie.actions';
+import {selectSelectedSmoothie} from '../../store/selectors/smoothie.selectors';
 
 @Component({
   selector: 'app-creation',
@@ -16,44 +15,24 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./creation.component.css']
 })
 export class CreationComponent implements OnInit {
+  fruits$ = this._store.pipe(select(selectFruitList));
+
   @Input() smoothie: Smoothie;
-
-  isLoading = false;
-
   jus: any[] = [];
-  allFruits: Fruit[] = [];
 
-  constructor(private router: Router, private smoothieService: SmoothieService, private fruitService: FruitService) {}
+  constructor(private _store: Store<IAppState>, private _router: Router) {}
 
   ngOnInit() {
     this.jus = this.getJuices();
-    this.getFruits();
+    this._store.dispatch(new GetFruits());
   }
 
   private getJuices() {
     return getJuices().map(k => getJuice(k));
   }
 
-  private getFruits() {
-    this.isLoading = true;
-    this.fruitService.getFruits().subscribe(fruits => {
-      this.isLoading = false;
-      this.allFruits = fruits;
-    });
-  }
-
-  private gotoSmoothies() {
-    const route = ['/smoothies'];
-    this.router.navigate(route);
-  }
-
   public createSmoothie(smoothie: Smoothie) {
     console.log('smoothie : ', smoothie);
-
-    this.isLoading = true;
-    this.smoothieService.postSmoothie(smoothie).pipe(finalize(() => { this.isLoading = false; })).subscribe(() => {
-      this.gotoSmoothies();
-    });
-
+    this._store.dispatch(new CreateSmoothie(smoothie));
   }
 }

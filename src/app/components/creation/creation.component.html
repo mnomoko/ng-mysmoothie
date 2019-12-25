@@ -1,6 +1,8 @@
-<div class="container" fxLayout="row" fxLayoutAlign="center center">
-  <app-form-smoothie *ngIf="!isLoading" class="creation-container" [allFruits]="allFruits" [jus]="jus" (item)="createSmoothie($event)"></app-form-smoothie>
-  <div *ngIf="isLoading" fxLayout="row" fxLayoutAlign="center center">
+<div class="container" fxLayout="row" fxLayoutAlign="center center" *ngIf="fruits$ | async as allFruits; else loading">
+  <app-form-smoothie class="creation-container" [allFruits]="allFruits" [jus]="jus" (item)="createSmoothie($event)"></app-form-smoothie>
+</div>
+<ng-template #loading>
+  <div class="smoothies-container" fxLayout="row" fxLayoutAlign="center center">
     <mat-spinner></mat-spinner>
   </div>
-</div>
+</ng-template>

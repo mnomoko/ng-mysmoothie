@@ -5,7 +5,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef} from '@angula
 @Component({
   selector: 'app-smoothie-card',
   templateUrl: './smoothie-card.component.html',
-  styleUrls: ['./smoothie.component.css'],
+  styleUrls: ['./smoothie-card.component.css'],
 })
 export class SmoothieCardComponent {
   @Input() smoothie: Smoothie;

@@ -1,15 +1,10 @@
-<article>
-  <div *ngIf="smoothie">
-    <h4>{{smoothie.name}} details</h4>
-
-    <div>
-      <label for="nametext">Name</label>
-      <input type="text" id="nametext" [(ngModel)]="smoothie.name" />
-    </div>
-
-    <div>
-      <label for="typetext">Description</label>
-      <input type="text" id="typetext" [(ngModel)]="smoothie.description" />
-    </div>
+<ng-container *ngIf="fruits$ | async as allFruits; else loading">
+  <div class="smoothies-container" fxLayout="row" fxLayoutAlign="center center" *ngIf="smoothie$ | async as smoothie; else loading">
+    <app-form-smoothie class="update-container" [smoothie]="smoothie" [allFruits]="allFruits" [jus]="jus" (item)="upateSmoothie($event)"></app-form-smoothie>
   </div>
-</article>
+</ng-container>
+<ng-template #loading>
+  <div class="smoothies-container" fxLayout="row" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
