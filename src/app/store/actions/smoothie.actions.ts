@@ -36,7 +36,7 @@ export class GetSmoothieAndFruits implements Action {
   constructor(public payload: number) {}
 }
 
-export class GetSmoothieSuccessAndFruits implements Action {
+export class GetSmoothieAndFruitsSuccess implements Action {
   public readonly type = ESmoothieActions.GetSmoothieAndFruitsSuccess;
   constructor(public payload: Smoothie) {}
 }
@@ -51,4 +51,4 @@ export class CreateSmoothieSuccess implements Action {
   constructor(public payload: Smoothie) {}
 }
 
-export type SmoothieActions = GetSmoothies | GetSmoothiesSuccess | GetSmoothie | GetSmoothieSuccess | CreateSmoothie | CreateSmoothieSuccess;
+export type SmoothieActions = GetSmoothies | GetSmoothiesSuccess | GetSmoothie | GetSmoothieSuccess | CreateSmoothie | CreateSmoothieSuccess | GetSmoothieAndFruits | GetSmoothieAndFruitsSuccess;

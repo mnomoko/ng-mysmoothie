@@ -15,11 +15,8 @@ export class FruitEffects {
   getFruit$ = this._actions$.pipe(
     ofType<GetFruit>(EFruitActions.GetFruit),
     map(action => action.payload),
-    withLatestFrom(this._store.pipe(select(selectFruitList))),
-    switchMap(([id, fruits]) => {
-      const selectedFruit = fruits.filter(fruit => fruit.id === +id)[0];
-      return of(new GetFruitSuccess(selectedFruit));
-    })
+    switchMap(number => this._fruitService.getFruit(number)),
+    switchMap((fruit: Fruit) => of(new GetFruitSuccess(fruit)))
   );
 
   @Effect()

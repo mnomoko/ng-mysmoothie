@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {IAppState} from '../state/app.state';
-import {select, Store} from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import {
   CreateSmoothie, CreateSmoothieSuccess,
   ESmoothieActions,
@@ -10,15 +10,12 @@ import {
   GetSmoothiesSuccess,
   GetSmoothieSuccess
 } from '../actions/smoothie.actions';
-import {flatMap, map, mergeMap, switchMap, tap, withLatestFrom} from 'rxjs/operators';
-import {forkJoin, of} from 'rxjs';
-import {selectSmoothieList} from '../selectors/smoothie.selectors';
+import {map, mergeMap, switchMap, tap} from 'rxjs/operators';
+import {of} from 'rxjs';
 import {SmoothieService} from '../../services/smoothie.service';
 import {Smoothie} from '../../models/smoothie';
-import {FruitService} from '../../services/fruit.service';
 import {Router} from '@angular/router';
 import {GetFruits} from '../actions/fruit.actions';
-import {Fruit} from '../../models/fruit';
 
 @Injectable()
 export class SmoothieEffects {
@@ -63,7 +60,6 @@ export class SmoothieEffects {
 
   constructor(
     private _router: Router,
-    private _fruitService: FruitService,
     private _smoothieService: SmoothieService,
     private _actions$: Actions,
     private _store: Store<IAppState>
